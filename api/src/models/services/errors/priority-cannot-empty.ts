@@ -1,5 +1,7 @@
-export class PriorityCannotBeEmptyError extends Error {
+import { HttpError } from "./http-error.js";
+
+export class PriorityCannotBeEmptyError extends HttpError {
   constructor() {
-    super('Priority cannot be empty')
+    super(400, 'Priority cannot be empty')
   }
 }

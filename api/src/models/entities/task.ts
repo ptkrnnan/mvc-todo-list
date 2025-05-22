@@ -2,6 +2,7 @@ import { randomUUID, UUID } from 'node:crypto'
 import { TitleCannotBeEmptyError } from '../services/errors/title-cannot-empty.js'
 import { PriorityCannotBeEmptyError } from '../services/errors/priority-cannot-empty.js'
 import { StatusCannotBeEmptyError } from '../services/errors/status-cannot-empty.js'
+import { InvalidTitleLengthError } from '../services/errors/invalid-title-length.js'
 
 export type Priority = 'high' | 'medium' | 'low'
 export type Status = 'completed' | 'in progress' | 'pending'
@@ -29,7 +30,7 @@ export class Task {
     if (!priority) throw new PriorityCannotBeEmptyError()
     if (!status) throw new StatusCannotBeEmptyError()
     if (title.length < 3 || title.length > 100)
-      throw new Error('The title must be between 3 and 100 characters long')
+      throw new InvalidTitleLengthError()
   }
 
   // business rules entities
