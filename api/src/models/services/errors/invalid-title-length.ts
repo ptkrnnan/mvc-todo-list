@@ -1,7 +1,5 @@
-import { HttpError } from "./http-error.js";
-
-export class InvalidTitleLengthError extends HttpError {
+export class InvalidTitleLengthError extends Error {
   constructor() {
-    super(400, 'The title must be between 3 and 100 characters long')
+    super('The title must be between 3 and 100 characters long')
   }
 }

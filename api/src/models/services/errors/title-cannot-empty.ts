@@ -1,7 +1,5 @@
-import { HttpError } from './http-error.js'
-
-export class TitleCannotBeEmptyError extends HttpError {
+export class TitleCannotBeEmptyError extends Error {
   constructor() {
-    super(400, 'Title cannot be empty')
+    super('Title cannot be empty')
   }
 }
