@@ -2,7 +2,7 @@ import { CreateTaskDTO } from '../../dtos/create-task-dto.js'
 import { ListTasksDTO } from '../../dtos/list-tasks-dto.js'
 import { UpdateTaskDTO } from '../../dtos/update-task-dto.js'
 import { Task } from '../../entities/task.js'
-import { TaskNotFound } from '../../services/errors/task-not-found.js'
+import { TaskNotFoundError } from '../../services/errors/task-not-found.js'
 import { TaskRepository } from '../taskRepository.js'
 
 export class InMemoryTasksRepository implements TaskRepository {
@@ -17,7 +17,7 @@ export class InMemoryTasksRepository implements TaskRepository {
 
   async update(data: UpdateTaskDTO): Promise<Task> {
     const task = await this.findById(data.id)
-    if (!task) throw new TaskNotFound()
+    if (!task) throw new TaskNotFoundError()
 
     if (data.title) task.changeTitle(data.title)
     if (data.priority) task.changePriority(data.priority)
@@ -28,7 +28,7 @@ export class InMemoryTasksRepository implements TaskRepository {
 
   async delete(id: string): Promise<void> {
     const taskIndex = this.items.findIndex((item) => item.id === id)
-    if (taskIndex === -1) throw new TaskNotFound()
+    if (taskIndex === -1) throw new TaskNotFoundError()
     this.items.splice(taskIndex, 1)
   }
 
