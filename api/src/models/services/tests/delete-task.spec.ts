@@ -2,7 +2,7 @@ import { beforeEach, describe, expect, it } from 'vitest'
 import { CreateTaskUseCase } from '../create-task.js'
 import { InMemoryTasksRepository } from '../../repositories/in-memory/in-memory-tasks-repository.js'
 import { DeleteTaskUseCase } from '../delete.task.js'
-import { TaskNotFound } from '../errors/task-not-found.js'
+import { TaskNotFoundError } from '../errors/task-not-found.js'
 
 let taskRepository: InMemoryTasksRepository
 let createTask: CreateTaskUseCase
@@ -32,7 +32,7 @@ describe('delete task', () => {
 
   it('should not be able to delete a non-existing task', async () => {
     await expect(sut.execute({ id: 'non-existing-id' })).rejects.toThrowError(
-      TaskNotFound
+      TaskNotFoundError
     )
   })
 

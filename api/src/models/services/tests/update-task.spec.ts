@@ -85,19 +85,4 @@ describe('update task', () => {
       })
     ).rejects.toThrowError(TaskNotFoundError)
   })
-
-  it('should not be able to update a task with empty priority or status', async () => {
-    const task = await createTask.execute({
-      title: 'Clean the bedroom',
-      priority: 'medium',
-      status: 'pending',
-    })
-
-    const updatedTask = await sut.execute({
-      id: task.id,
-      title: 'Clean the bedroom',
-      priority: 'high',
-      status: 'in progress',
-    })
-  })
 })

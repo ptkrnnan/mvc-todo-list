@@ -1,7 +1,5 @@
-import { HttpError } from './http-error.js'
-
-export class CannotUpdateCompletedTaskError extends HttpError {
+export class CannotUpdateCompletedTaskError extends Error {
   constructor() {
-    super(409, 'Cannot update a completed task.')
+    super('Cannot update a completed task.')
   }
 }

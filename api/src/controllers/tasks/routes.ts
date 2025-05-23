@@ -1,6 +1,7 @@
 import { FastifyInstance } from 'fastify'
-import { makeCreateAdapter } from '../adapters/factories/make-create-adapter.js'
+import { fastifyAdapter } from '../adapters/fastify-adapter.js'
+import { CreateTaskController } from './create-task.js'
 
 export function tasksRoutes(app: FastifyInstance) {
-  app.post('/create', makeCreateAdapter())
+  app.post('/create', fastifyAdapter(new CreateTaskController()))
 }

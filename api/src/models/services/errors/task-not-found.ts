@@ -1,7 +1,5 @@
-import { HttpError } from './http-error.js'
-
-export class TaskNotFoundError extends HttpError {
+export class TaskNotFoundError extends Error {
   constructor() {
-    super(404, 'Task not found.')
+    super('Task not found.')
   }
 }

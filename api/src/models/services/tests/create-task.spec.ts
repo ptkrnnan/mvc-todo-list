@@ -1,7 +1,7 @@
 import { beforeEach, describe, expect, it } from 'vitest'
 import { CreateTaskUseCase } from '../create-task.js'
 import { InMemoryTasksRepository } from '../../repositories/in-memory/in-memory-tasks-repository.js'
-import { TitleAlreadyExists } from '../errors/title-already-exists.js'
+import { TitleAlreadyExistsError } from '../errors/title-already-exists.js'
 
 let taskRepository: InMemoryTasksRepository
 let sut: CreateTaskUseCase
@@ -35,6 +35,6 @@ describe('create task', () => {
         priority: 'high',
         status: 'completed',
       })
-    ).rejects.toThrowError(TitleAlreadyExists)
+    ).rejects.toThrowError(TitleAlreadyExistsError)
   })
 })
