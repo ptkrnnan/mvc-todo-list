@@ -16,7 +16,7 @@ describe('delete task', () => {
   })
 
   it('should be able to delete a task', async () => {
-    const task = await createTask.execute({
+    const { task } = await createTask.execute({
       title: 'Clean the bedroom',
       priority: 'medium',
       status: 'pending',
@@ -37,7 +37,7 @@ describe('delete task', () => {
   })
 
   it('should remove task from the repository', async () => {
-    const task = await createTask.execute({
+    const { task } = await createTask.execute({
       title: 'Clean the bedroom',
       priority: 'low',
       status: 'completed',

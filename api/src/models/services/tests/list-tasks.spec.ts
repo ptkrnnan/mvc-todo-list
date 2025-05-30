@@ -18,13 +18,13 @@ describe('list all tasks', () => {
     await createTask.execute({
       title: 'Clean the bedroom',
       priority: 'low',
-      status: 'in progress',
+      status: 'in_progress',
     })
 
     await createTask.execute({
       title: 'Clean the bedroom 2',
       priority: 'low',
-      status: 'in progress',
+      status: 'in_progress',
     })
 
     const tasks = await sut.execute()
@@ -37,18 +37,18 @@ describe('list all tasks', () => {
     await createTask.execute({
       title: 'Clean the bedroom',
       priority: 'low',
-      status: 'in progress',
+      status: 'in_progress',
     })
 
     await createTask.execute({
       title: 'Clean the bedroom 2',
       priority: 'low',
-      status: 'in progress',
+      status: 'in_progress',
     })
 
-    const tasks = await sut.execute({ priority: 'low', status: 'in progress' })
+    const tasks = await sut.execute({ priority: 'low', status: 'in_progress' })
     expect(tasks.forEach((task) => expect(task.priority).toBe('low')))
-    expect(tasks.forEach((task) => expect(task.status).toBe('in progress')))
+    expect(tasks.forEach((task) => expect(task.status).toBe('in_progress')))
   })
 
   it('should return an empty array if no tasks match filters', async () => {
@@ -89,7 +89,7 @@ describe('list all tasks', () => {
     await createTask.execute({
       title: 'Clean the bedroom 2',
       priority: 'low',
-      status: 'in progress',
+      status: 'in_progress',
     })
 
     const tasks = await sut.execute({ title: 'Clean the bedroom' })
@@ -99,7 +99,7 @@ describe('list all tasks', () => {
   })
 
   it('should filter tasks by id', async () => {
-    const task = await createTask.execute({
+    const { task } = await createTask.execute({
       title: 'Clean the bedroom',
       priority: 'medium',
       status: 'completed',
@@ -108,7 +108,7 @@ describe('list all tasks', () => {
     await createTask.execute({
       title: 'Clean the bedroom 2',
       priority: 'low',
-      status: 'in progress',
+      status: 'in_progress',
     })
 
     const tasks = await sut.execute({ id: task.id })

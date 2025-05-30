@@ -18,7 +18,7 @@ describe('update task', () => {
   })
 
   it('should be able to update a task', async () => {
-    const task = await createTask.execute({
+    const { task } = await createTask.execute({
       title: 'Clean the bedroom',
       priority: 'medium',
       status: 'pending',
@@ -28,11 +28,11 @@ describe('update task', () => {
       id: task.id,
       title: 'Clean the bedroom',
       priority: 'high',
-      status: 'in progress',
+      status: 'in_progress',
     })
 
     expect(updatedTask.priority).toBe('high')
-    expect(updatedTask.status).toBe('in progress')
+    expect(updatedTask.status).toBe('in_progress')
   })
 
   it('should not be able to update a task with the same title', async () => {
@@ -42,7 +42,7 @@ describe('update task', () => {
       status: 'pending',
     })
 
-    const task2 = await createTask.execute({
+    const { task } = await createTask.execute({
       title: 'Do the dishes',
       priority: 'low',
       status: 'pending',
@@ -50,7 +50,7 @@ describe('update task', () => {
 
     await expect(
       sut.execute({
-        id: task2.id,
+        id: task.id,
         title: 'Clean the bedroom',
         priority: 'medium',
         status: 'pending',
@@ -59,7 +59,7 @@ describe('update task', () => {
   })
 
   it('should not be able to update a task with the status completed', async () => {
-    const task = await createTask.execute({
+    const { task } = await createTask.execute({
       title: 'Clean the room',
       priority: 'medium',
       status: 'completed',

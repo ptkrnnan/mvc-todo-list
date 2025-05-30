@@ -13,7 +13,7 @@ describe('create task', () => {
   })
 
   it('should be able to create a task', async () => {
-    const task = await sut.execute({
+    const { task } = await sut.execute({
       title: 'Clean the bedroom',
       priority: 'medium',
       status: 'pending',
