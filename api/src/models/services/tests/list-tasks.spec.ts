@@ -27,10 +27,10 @@ describe('list all tasks', () => {
       status: 'in_progress',
     })
 
-    const tasks = await sut.execute()
-    expect(tasks).toHaveLength(2)
-    expect(tasks[0].title).toBe('Clean the bedroom')
-    expect(tasks[1].title).toBe('Clean the bedroom 2')
+    const { task } = await sut.execute()
+    expect(task).toHaveLength(2)
+    expect(task[0].title).toBe('Clean the bedroom')
+    expect(task[1].title).toBe('Clean the bedroom 2')
   })
 
   it('should be able to list tasks filtered by priority and status', async () => {
@@ -46,9 +46,12 @@ describe('list all tasks', () => {
       status: 'in_progress',
     })
 
-    const tasks = await sut.execute({ priority: 'low', status: 'in_progress' })
-    expect(tasks.forEach((task) => expect(task.priority).toBe('low')))
-    expect(tasks.forEach((task) => expect(task.status).toBe('in_progress')))
+    const { task } = await sut.execute({
+      priority: 'low',
+      status: 'in_progress',
+    })
+    expect(task.forEach((task) => expect(task.priority).toBe('low')))
+    expect(task.forEach((task) => expect(task.status).toBe('in_progress')))
   })
 
   it('should return an empty array if no tasks match filters', async () => {
@@ -58,8 +61,8 @@ describe('list all tasks', () => {
       status: 'completed',
     })
 
-    const tasks = await sut.execute({ priority: 'high', status: 'pending' })
-    expect(tasks).toEqual([])
+    const { task } = await sut.execute({ priority: 'high', status: 'pending' })
+    expect(task).toEqual([])
   })
 
   it('should return all tasks if no filters are provided', async () => {
@@ -75,8 +78,8 @@ describe('list all tasks', () => {
       status: 'pending',
     })
 
-    const tasks = await sut.execute({})
-    expect(tasks.length).toEqual(2)
+    const { task } = await sut.execute({})
+    expect(task.length).toEqual(2)
   })
 
   it('should filter tasks by title', async () => {
@@ -92,27 +95,27 @@ describe('list all tasks', () => {
       status: 'in_progress',
     })
 
-    const tasks = await sut.execute({ title: 'Clean the bedroom' })
-    expect(tasks).toHaveLength(2)
-    expect(tasks[0].title).toContain('Clean the bedroom')
-    expect(tasks[1].title).toContain('Clean the bedroom')
+    const { task } = await sut.execute({ title: 'Clean the bedroom' })
+    expect(task).toHaveLength(2)
+    expect(task[0].title).toContain('Clean the bedroom')
+    expect(task[1].title).toContain('Clean the bedroom')
   })
 
   it('should filter tasks by id', async () => {
-    const { task } = await createTask.execute({
+    await createTask.execute({
       title: 'Clean the bedroom',
       priority: 'medium',
       status: 'completed',
     })
 
-    await createTask.execute({
+    const { task } = await createTask.execute({
       title: 'Clean the bedroom 2',
       priority: 'low',
       status: 'in_progress',
     })
 
-    const tasks = await sut.execute({ id: task.id })
-    expect(tasks).toHaveLength(1)
-    expect(tasks[0].id).toBe(task.id)
+    const { task: filteredTasks } = await sut.execute({ id: task.id })
+    expect(filteredTasks).toHaveLength(1)
+    expect(filteredTasks[0].id).toBe(task.id)
   })
 })
