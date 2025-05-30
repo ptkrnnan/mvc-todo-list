@@ -13,7 +13,7 @@ export class CreateTaskController implements HttpController {
     const bodySchema = z.object({
       title: z.string().min(3).max(100),
       priority: z.enum(['high', 'medium', 'low']),
-      status: z.enum(['completed', 'in progress', 'pending']),
+      status: z.enum(['completed', 'in_progress', 'pending']),
     })
 
     const { title, priority, status } = bodySchema.parse(request.body)

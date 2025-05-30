@@ -4,7 +4,7 @@ import { PriorityCannotBeEmptyError } from './errors/priority-cannot-empty.js'
 import { StatusCannotBeEmptyError } from './errors/status-cannot-empty.js'
 
 export type Priority = 'high' | 'medium' | 'low'
-export type Status = 'completed' | 'in progress' | 'pending'
+export type Status = 'completed' | 'in_progress' | 'pending'
 
 export class Task {
   public readonly id: UUID

@@ -15,7 +15,7 @@ describe('create task (E2E)', () => {
     const response = await request(app.server).post('/create').send({
       title: 'Create',
       priority: 'high',
-      status: 'in progress',
+      status: 'in_progress',
     })
     expect(response.statusCode).toEqual(201)
   })
