@@ -1,14 +1,29 @@
-import { UpdateTaskDTO } from '../dtos/update-task-dto.js'
-import { Task } from '../entities/task.js'
+import { Priority, Status, Task } from '../entities/task.js'
 import { TaskRepository } from '../repositories/taskRepository.js'
 import { CannotUpdateCompletedTaskError } from './errors/cannot-update-completed-task.js'
 import { TaskNotFoundError } from './errors/task-not-found.js'
 import { TitleAlreadyExistsError } from './errors/title-already-exists.js'
 
+interface UpdateTaskUseCaseRequest {
+  id: string
+  title: string
+  priority: Priority
+  status: Status
+}
+
+interface UpdateTaskUseCaseResponse {
+  task: Task
+}
+
 export class UpdateTaskUseCase {
   constructor(private taskRepository: TaskRepository) {}
 
-  async execute({ id, title, priority, status }: UpdateTaskDTO): Promise<Task> {
+  async execute({
+    id,
+    title,
+    priority,
+    status,
+  }: UpdateTaskUseCaseRequest): Promise<UpdateTaskUseCaseResponse> {
     const existingTask = await this.taskRepository.findById(id)
     if (!existingTask) throw new TaskNotFoundError()
 
@@ -23,8 +38,8 @@ export class UpdateTaskUseCase {
     existingTask.changePriority(priority)
     existingTask.changeStatus(status)
 
-    const updateTask = await this.taskRepository.update(existingTask)
+    const task = await this.taskRepository.update(existingTask)
 
-    return updateTask
+    return { task }
   }
 }

@@ -24,7 +24,7 @@ describe('update task', () => {
       status: 'pending',
     })
 
-    const updatedTask = await sut.execute({
+    const { task: updatedTask } = await sut.execute({
       id: task.id,
       title: 'Clean the bedroom',
       priority: 'high',

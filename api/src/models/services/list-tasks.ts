@@ -1,4 +1,3 @@
-import { ListTasksDTO } from '../dtos/list-tasks-dto.js'
 import { Priority, Status, Task } from '../entities/task.js'
 import { TaskRepository } from '../repositories/taskRepository.js'
 

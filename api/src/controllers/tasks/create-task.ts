@@ -1,15 +1,11 @@
 import { z } from 'zod'
-import { CreateTaskDTO } from '../../models/dtos/create-task-dto.js'
 import { TitleAlreadyExistsError } from '../../models/services/errors/title-already-exists.js'
 import { makeCreateUseCase } from '../../models/services/factories/make-create-use-case.js'
 import { HttpController } from '../http-controller.js'
 import { HttpRequest, HttpResponse } from '../types-controller.js'
 
 export class CreateTaskController implements HttpController {
-  async handle(
-    request: HttpRequest<CreateTaskDTO>,
-    response: HttpResponse
-  ): Promise<void> {
+  async handle(request: HttpRequest, response: HttpResponse): Promise<void> {
     const bodySchema = z.object({
       title: z.string().min(3).max(100),
       priority: z.enum(['high', 'medium', 'low']),

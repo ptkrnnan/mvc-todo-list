@@ -1,6 +1,3 @@
-import { CreateTaskDTO } from '../../dtos/create-task-dto.js'
-import { ListTasksDTO } from '../../dtos/list-tasks-dto.js'
-import { UpdateTaskDTO } from '../../dtos/update-task-dto.js'
 import { Task } from '../../entities/task.js'
 import { TaskNotFoundError } from '../../services/errors/task-not-found.js'
 import { TaskRepository } from '../taskRepository.js'
@@ -8,14 +5,14 @@ import { TaskRepository } from '../taskRepository.js'
 export class InMemoryTasksRepository implements TaskRepository {
   public items: Task[] = []
 
-  async create(data: CreateTaskDTO): Promise<Task> {
+  async create(data: any): Promise<Task> {
     const task = new Task(data.title, data.priority, data.status)
 
     this.items.push(task)
     return task
   }
 
-  async update(data: UpdateTaskDTO): Promise<Task> {
+  async update(data: any): Promise<Task> {
     const task = await this.findById(data.id)
     if (!task) throw new TaskNotFoundError()
 
@@ -46,7 +43,7 @@ export class InMemoryTasksRepository implements TaskRepository {
     return this.items
   }
 
-  async findAllFiltered(filters: ListTasksDTO): Promise<Task[]> {
+  async findAllFiltered(filters: any): Promise<Task[]> {
     return this.items.filter((task) => {
       if (filters.priority && task.priority !== filters.priority) return false
       if (filters.status && task.status !== filters.status) return false
